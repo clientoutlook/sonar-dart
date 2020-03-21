@@ -1,0 +1,32 @@
+language: java
+sudo: false
+jdk: openjdk11
+
+before_install:
+- echo "allow-loopback-pinentry" >> ~/.gnupg/gpg-agent.conf
+- echo $GPG_SECRET_KEY | base64 --decode | gpg --import --no-tty --batch
+- echo $GPG_OWNERTRUST | base64 --decode | gpg --import-ownertrust
+
+before_deploy:
+- export project_version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+
+install:
+- mvn --settings .travis/maven.settings.xml install -B
+
+script:
+- mvn --settings .travis/maven.settings.xml clean deploy -B -U -Prelease
+
+deploy:
+  provider: releases
+  api_key:
+    secure: YZRkcFlV7UWIMqLOhihtXKnbJ/iCgxEf7/yTJ+29JHTRugFcxHWmV4sKffultiTFdUTWkfG/WfUNPFCcIEUOvlRN4J7483ndaReiT9Q05DaKk/4Je89LxIVzn2agVHsL949TXwlMkIun8VgGOT1NhJSKuknvzXAyO5tVFq4jOAfpWozItkDbdxqHwKAo71A088YzINDgtCz55+mNxqwenfvuNUzlGOrtBCSMDhPNDavp6bJFdq1dVlb6eJcWQC/SWvsM3yq0AyXTfAWabQcpzy3OLVSOZ11z35bZoQblbqzc0nWzNrQtrU9Y6FEldWYwAo3GEijbLQLCB6Ob0+JbqLyYEE3IgGoJA5plA9YSC852DS0KAtsK47IMtIEgxQmjtiMK20HQzoU02DBeqQbaPYHeExPYRJHjjxYFbiuVkFEyaT49QGmMUnZjyCR3nVV1NE8UjHvB8g31iPYkHOmkbbY7lz2E1u6CrQoi7au2TAS+E6XFcjDoPJbKuC29s2qvI3z3TLLR8H0if9767Zzw7pFwgircchT5vfeRcXqGDplHiz0V4TjOlMD9YFAFKlIH39UQ0ESWr042aSWPs6yIp1PT/hwrFfh/lrN8KsoagdebXkx7yxl29lmQXYzCNUIYx8Ipaypt8aWSATLp6ytIrDwL/jTNES/8NTLlSddmep8=
+  file:
+    - sonar-dart-plugin/target/sonar-dart-plugin-$project_version.jar
+  skip_cleanup: true
+  on:
+    repo: clientoutlook/sonar-dart
+  name: $project_version
+
+cache:
+  directories:
+  - "$HOME/.m2/repository"

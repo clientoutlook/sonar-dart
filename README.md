@@ -1,5 +1,4 @@
-# Sonar Dart Plugin
-
+# Sonar Dart Plugin [![Build Status](https://travis-ci.com/clientoutlook/sonar-dart.svg?branch=master)](https://travis-ci.com/clientoutlook/sonar-dart) [![License](https://img.shields.io/badge/license-BSD%20-green.svg)](https://https://raw.githubusercontent.com/clientoutlook/sonar-dart/master/LICENSE)
 A Dart SonarQube plugin compatible with SonarQube 8.x.
 
 This plugin relies on the output of the [dartanalyzer](https://dart.dev/tools/dartanalyzer) for the generation of SonarQube issues.  Please refer to the configuration key `sonar.dart.analyzer`.
@@ -42,25 +41,10 @@ sonar.dart.lcov.reportPaths=lcov.out
 
 ### Plugin Configuration
 
-<table>
-<thead>
-<tr><th>Key</th><th>Description</th></thead>
-</thead>
-<tbody>
-<tr>
-<td>sonar.dart.analyzer</td>
-<td>Path to the collected output of [dartanalyzer](https://dart.dev/tools/dartanalyzer). It must be run with --format=machine. For example:
-<pre>dartanalyzer --lints --format=machine --packages=.packages . 2>dartanalyzer.out</pre>
-</td>
-</tr>
-<tr>
-<td>sonar.dart.lcov.reportPaths</td>
-<td>A comma separated list of dart test coverage data formatted with [coverage:format_coverage](https://pub.dev/packages/coverage). For example:
-<pre>pub run test --coverage coverage && pub run coverage:format_coverage --packages=.packages -i coverage --lcov --out=lcov.out</pre>
-</td>
-</tr>
-</tbody>
-</table>
+Key | Description
+----| -----------
+sonar.dart.analyzer | Path to the collected output of [dartanalyzer](https://dart.dev/tools/dartanalyzer). It must be run with `--format=machine`. For example: ```dartanalyzer --lints --format=machine --packages=.packages . 2>dartanalyzer.out```
+sonar.dart.lcov.reportPaths | A comma separated list of dart test coverage data formatted with [coverage:format_coverage](https://pub.dev/packages/coverage). For example: ```pub run test --coverage coverage && pub run coverage:format_coverage --packages=.packages -i coverage --lcov --out=lcov.out```
 
 ## License
 

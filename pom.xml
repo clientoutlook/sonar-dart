@@ -13,28 +13,42 @@
 	</modules>
 
 	<scm>
-		<developerConnection>scm:git:git@bitbucket.org:clientoutlook/sonar-dart.git</developerConnection>
-		<url>https://bitbucket.org/clientoutlook/sonar-dart</url>
-		<tag>HEAD</tag>
+		<connection>scm:git:https://github.com/clientoutlook/sonar-dart.git</connection>
+		<url>https://github.com/clientoutlook/sonar-dart</url>
 	</scm>
+
 	<issueManagement>
 		<system>GitHub</system>
-		<url>https://github.com/ClientOutlook/sonar-dart/issues</url>
+		<url>https://github.com/clientoutlook/sonar-dart/issues</url>
 	</issueManagement>
+
 	<ciManagement>
 		<system>Travis</system>
-		<url>https://travis-ci.org/ClientOutlook/sonar-dart</url>
+		<url>https://travis-ci.com/github/clientoutlook/sonar-dart</url>
 	</ciManagement>
+
 	<distributionManagement>
 		<repository>
-			<id>release</id>
-			<url></url>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 		</repository>
 		<snapshotRepository>
-			<id>snapshots</id>
-			<url></url>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
 		</snapshotRepository>
+		<site>
+			<id>wiki</id>
+			<url>https://github.com/clientoutlook/sonar-dart/wiki</url>
+		</site>
 	</distributionManagement>
+
+	<licenses>
+		<license>
+			<name>BSD-3-Clause</name>
+			<url>https://directory.fsf.org/wiki/License:BSD-3-Clause</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -120,4 +134,44 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+	<profiles>
+		<profile>
+			<id>release</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.sonatype.plugins</groupId>
+						<artifactId>nexus-staging-maven-plugin</artifactId>
+						<version>1.6.8</version>
+						<extensions>true</extensions>
+						<configuration>
+							<serverid>ossrh</serverid>
+							<nexusurl>https://oss.sonatype.org/</nexusurl>
+							<autoreleaseafterclose>true</autoreleaseafterclose>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.6</version>
+						<configuration>
+							<gpgarguments>
+								<gpgargument>--pinentry-mode</gpgargument>
+								<gpgargument>loopback</gpgargument>
+							</gpgarguments>
+						</configuration>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
