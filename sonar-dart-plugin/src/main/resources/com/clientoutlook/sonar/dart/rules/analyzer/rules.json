@@ -1,0 +1,8 @@
+[
+	{
+		"key": "UNUSED_LOCAL_VARIABLE",
+		"name": "Unused local variable",
+		"type": "CODE_SMELL",
+		"url": ""
+	}
+]
