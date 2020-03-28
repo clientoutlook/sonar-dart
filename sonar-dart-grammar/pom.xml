@@ -4,12 +4,12 @@
 	<parent>
 		<groupId>com.clientoutlook.sonar</groupId>
 		<artifactId>dart</artifactId>
-		<version>1.0.3</version>
+		<version>1.0.4-SNAPSHOT</version>
 	</parent>
 
 	<groupId>com.clientoutlook.sonar</groupId>
 	<artifactId>sonar-dart-grammar</artifactId>
-	<version>1.0.3</version>
+	<version>1.0.4-SNAPSHOT</version>
 	<name>Sonar Dart Grammar</name>
 
 	<build>
